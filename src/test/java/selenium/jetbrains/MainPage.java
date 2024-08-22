@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainPage extends BaseSeleniumPage {
-    Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(3));
 
     @FindBy(css = "button[data-test='site-header-search-action']")
     private WebElement searchButton;
@@ -67,7 +66,7 @@ public class MainPage extends BaseSeleniumPage {
     }
 
     public AdvancedSearchPage clickAdvancedSearchButton() {
-        wait.until(ExpectedConditions.visibilityOf(advancedSearchButton)).click();
+        advancedSearchButton.click();
         return new AdvancedSearchPage();
     }
 

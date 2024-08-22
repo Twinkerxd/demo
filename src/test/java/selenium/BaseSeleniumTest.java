@@ -35,6 +35,4 @@ public abstract class BaseSeleniumTest {
     public void tearDown() {
         driver.quit();
     }
-
-
 }

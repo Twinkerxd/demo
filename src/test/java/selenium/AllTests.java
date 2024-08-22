@@ -27,7 +27,8 @@ public class AllTests extends BaseSeleniumTest {
                 .sendTextSearchInput("Selenium")
                 .clickSearchInput()
                 .clickAdvancedSearchButton()
-                .getResult();
+                .getResult()
+                .getText();
 
         assertEquals(expectedResult, actualResult);
     }
