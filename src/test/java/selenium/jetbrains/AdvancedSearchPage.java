@@ -20,7 +20,6 @@ public class AdvancedSearchPage extends BaseSeleniumPage {
     @FindBy(css = "button[data-test=close-search]")
     private WebElement closeSearchButton;
 
-
     public AdvancedSearchPage() {
         PageFactory.initElements(driver,this);
     }

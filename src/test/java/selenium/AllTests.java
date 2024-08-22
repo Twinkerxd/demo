@@ -1,31 +1,33 @@
 package selenium;
 
+import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.interactions.Actions;
-import selenium.noFluffJobsPage.NoFluffJobsPage;
 import selenium.jetbrains.MainPage;
-import selenium.seldevpages.AlertPage;
-import selenium.seldevpages.WaitPage;
+import selenium.nofluffjobs.NoFluffJobsPage;
+import selenium.seldev.AlertPage;
+import selenium.seldev.WaitPage;
 import selenium.solidJobs.SolidJobsPage;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static selenium.WebElementUtils.*;
 
 public class AllTests extends BaseSeleniumTest {
 
     @Test
     public void checkSearchResults() {
         String expectedResult = "Aqua: The IDE for test automation";
-        String actualResult = new MainPage().clickSearchButton().clickSearchInput().sendTextSearchInput("Selenium").clickSearchInput().clickAdvancedSearchButton().getResult();
+        String actualResult = new MainPage()
+                .clickSearchButton()
+                .clickSearchInput()
+                .sendTextSearchInput("Selenium")
+                .clickSearchInput()
+                .clickAdvancedSearchButton()
+                .getResult();
 
         assertEquals(expectedResult, actualResult);
     }
@@ -33,17 +35,26 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void checkCloseSearchButton() {
         String expectedResult = "Make Your Software Vision a Reality";
-        String actualResult = new MainPage().clickSearchButton().clickSearchInput().sendTextSearchInput("Selenium").clickAdvancedSearchButton().clickCloseSearchButton().getMainTitle();
+        String actualResult = new MainPage()
+                .clickSearchButton()
+                .clickSearchInput()
+                .sendTextSearchInput("Selenium")
+                .clickAdvancedSearchButton()
+                .clickCloseSearchButton()
+                .getMainTitle();
 
         assertEquals(expectedResult, actualResult);
-
-
     }
 
     @Test
     public void checkAquaPageTitle() {
-        String expectedResult = new MainPage().clickDeveloperToolsButton().clickAquaSpan().getTitle();
-        assertEquals(expectedResult, "The IDE for test automation");
+        String expectedResult = "The IDE for test automation";
+        String actualResult = new MainPage()
+                .clickDeveloperToolsButton()
+                .clickAquaSpan()
+                .getTitle();
+
+        assertEquals(expectedResult, actualResult);
     }
 
     @Test
@@ -56,7 +67,8 @@ public class AllTests extends BaseSeleniumTest {
         expectedResult.add("Support");
         expectedResult.add("Store");
 
-        List<String> actualResult = new MainPage().getMainMenuItems();
+        List<String> actualResult = new MainPage()
+                .getMainMenuItems();
 
         assertEquals(expectedResult, actualResult);
     }
@@ -64,30 +76,29 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void checkElementProperty() {
         String expectedResult = "https://www.jetbrains.com/#for-teams";
-        String actualResult = new MainPage().getForTeamsLink();
+        String actualResult = new MainPage()
+                .getForTeamsLink();
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
     public void checkCssColorValue() {
-        String color = new MainPage().getForTeamsCSSValue("background-image");
+        String color = new MainPage()
+                .getForTeamsCSSValue("background-image");
+
         System.out.println(color);
     }
 
     @Test
-    public void actionMoveToElement() throws InterruptedException {
-        new MainPage();
-        Actions actions = new Actions(driver);
-        Thread.sleep(1000);
-        actions.moveToElement(driver.findElement(By.cssSelector("a[href='#for-teams']"))).build().perform();
-        Thread.sleep(1000);
+    public void actionMoveToElement() {
+        moveToElement(new MainPage().getTeamsLink());
     }
 
     /**
-     * Для одного элемента
-     * явное ожидание для конкретного элемента
-     * если нужно дождаться пока элемент пропадёт - только явные ожидания
+     * For a single element:
+     * explicit wait for a specific element
+     * if you need to wait for an element to disappear—use only explicit waits.
      */
     @Test
     public void explicitWaits_1() {
@@ -95,7 +106,8 @@ public class AllTests extends BaseSeleniumTest {
         WaitPage waitPage = new WaitPage();
         WebElement element = waitPage.getRedBox0();
 
-        waitPage.clickAddButton().waitVisibilityOfElement(element);
+        waitPage.clickAddButton();
+        waitVisibilityOfElement(element);
 
         Boolean expectedResult = true;
         Boolean actualResult = element.isDisplayed();
@@ -104,7 +116,7 @@ public class AllTests extends BaseSeleniumTest {
     }
 
     /**
-     * Для нескольких элементов
+     * For multiple elements.
      */
     @Test
     public void explicitWaits_2() {
@@ -112,10 +124,11 @@ public class AllTests extends BaseSeleniumTest {
         WaitPage waitPage = new WaitPage();
 
         for (int i = 0; i < 5; i++) {
-            System.out.println("=========== " + i);
+            String id = "box" + i;
             waitPage.clickAddButton();
-            waitPage.waitRedBoxElementById(i);
+            waitElementById(id);
         }
+
         int expectedResult = 5;
         int actualResult = waitPage.getRedBoxElementsList().size();
 
@@ -124,7 +137,6 @@ public class AllTests extends BaseSeleniumTest {
 
     @Test
     public void explicitWaitWithLambda() {
-
         open("https://www.selenium.dev/selenium/web/dynamic.html");
         WaitPage waitPage = new WaitPage();
         waitPage.clickAddButton();
@@ -135,62 +147,56 @@ public class AllTests extends BaseSeleniumTest {
     }
 
     @Test
-    public void alert_1() {
+    public void JsAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
         AlertPage alertPage = new AlertPage();
-        alertPage.waitElementByXpath("//button[text()='Click for JS Alert']");
-        alertPage.getAlertElementByXpath("//button[text()='Click for JS Alert']").click();
-        alertPage.waitAlertIsPresent().accept();
+        alertPage.clickJsAlertButton();
+        waitAlertIsPresent().accept();
 
         String expectedResult = "You successfully clicked an alert";
-        String actualResult = alertPage.waitVisibilityOfElementById("result").getText();
+        String actualResult = alertPage.getResultField().getText();
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void alert_2() {
+    public void JsConfirmAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
         AlertPage alertPage = new AlertPage();
-        alertPage.waitElementByXpath("//button[text()='Click for JS Confirm']");
-        alertPage.getAlertElementByXpath("//button[text()='Click for JS Confirm']").click();
-        alertPage.waitAlertIsPresent().accept();
+        alertPage.clickJsConfirmButton();
+        waitAlertIsPresent().accept();
 
         String expectedResult = "You clicked: Ok";
-        String actualResult = alertPage.waitVisibilityOfElementById("result").getText();
+        String actualResult = alertPage.getResultField().getText();
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void alert_3() {
+    public void JsCancelAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
         AlertPage alertPage = new AlertPage();
-
-        alertPage.waitElementByXpath("//button[text()='Click for JS Confirm']");
-        alertPage.getAlertElementByXpath("//button[text()='Click for JS Confirm']").click();
-        alertPage.waitAlertIsPresent().dismiss();
+        alertPage.clickJsConfirmButton();
+        waitAlertIsPresent().dismiss();
 
         String expectedResult = "You clicked: Cancel";
-        String actualResult = alertPage.waitVisibilityOfElementById("result").getText();
+        String actualResult = alertPage.getResultField().getText();
 
         assertEquals(expectedResult, actualResult);
     }
 
     @Test
-    public void alert_4() {
+    public void JsPromptAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
         AlertPage alertPage = new AlertPage();
-        alertPage.waitElementByXpath("//button[text()='Click for JS Prompt']");
-        alertPage.getAlertElementByXpath("//button[text()='Click for JS Prompt']").click();
+        alertPage.clickJsPromptButton();
 
-        Alert alert = alertPage.waitAlertIsPresent();
+        waitAlertIsPresent();
         String text = "Kappa";
-        alert.sendKeys(text);
-        alert.accept();
+        sendKeysToAlert(text).accept();
 
         String expectedResult = "You entered: " + text;
-        String actualResult = alertPage.waitVisibilityOfElementById("result").getText();
+        String actualResult = alertPage.getResultField().getText();
 
         assertEquals(expectedResult, actualResult);
     }
@@ -202,7 +208,11 @@ public class AllTests extends BaseSeleniumTest {
         expectedResult.add("Aqua");
         expectedResult.add("All Products Pack");
 
-        List<String> actualResult = new MainPage().clickDeveloperToolsButton().clickAquaSpan().clickAquaButton().getTitlesPlans();
+        List<String> actualResult = new MainPage()
+                .clickDeveloperToolsButton()
+                .clickAquaSpan()
+                .clickAquaButton()
+                .getTitlesPlans();
 
         assertEquals(expectedResult, actualResult);
     }
@@ -229,9 +239,18 @@ public class AllTests extends BaseSeleniumTest {
             }
         }
 
-        for (Map.Entry<String, Integer> entry : frequenceMap.entrySet()) {
-            System.out.println(entry.getKey() + ", " + entry.getValue());
+        // Sorting the map by value in descending order
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(frequenceMap.entrySet());
+        list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+
+        // Converting the sorted list back to LinkedHashMap to preserve the order
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
         }
+
+        // Printing the sorted map
+        sortedMap.forEach((key, value) -> System.out.println(key + ": " + value));
     }
 
     @Test
@@ -249,9 +268,34 @@ public class AllTests extends BaseSeleniumTest {
             }
         }
 
-        for (Map.Entry<String, Integer> entry : frequenceMap.entrySet()) {
-            System.out.println(entry.getKey() + ", " + entry.getValue());
+        // Sorting the map by value in descending order
+        List<Map.Entry<String, Integer>> list = new ArrayList<>(frequenceMap.entrySet());
+        list.sort(Map.Entry.<String, Integer>comparingByValue().reversed());
+
+        // Converting the sorted list back to LinkedHashMap to preserve the order
+        Map<String, Integer> sortedMap = new LinkedHashMap<>();
+        for (Map.Entry<String, Integer> entry : list) {
+            sortedMap.put(entry.getKey(), entry.getValue());
         }
+
+        // Printing the sorted map
+        sortedMap.forEach((key, value) -> System.out.println(key + ": " + value));
     }
 
+    @Test
+    public void softAsserts() {
+        SoftAssertions softAssertions = new SoftAssertions();
+
+        // First soft assertion
+        softAssertions.assertThat(1).as("Проверка первого утверждения").isEqualTo(1);
+
+        // Second soft assertion
+        softAssertions.assertThat("Hello").as("Проверка второго утверждения").isEqualTo("World");
+
+        // Third soft assertion
+        softAssertions.assertThat(true).as("Проверка третьего утверждения").isFalse();
+
+        // Executing all accumulated assertions
+        softAssertions.assertAll();
+    }
 }

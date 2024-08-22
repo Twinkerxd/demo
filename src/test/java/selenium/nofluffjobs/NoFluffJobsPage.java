@@ -1,4 +1,4 @@
-package selenium.noFluffJobsPage;
+package selenium.nofluffjobs;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -24,9 +24,6 @@ public class NoFluffJobsPage extends BaseSeleniumPage {
 
     @FindBy(xpath = "//div[contains(@class, 'list-container')]/a")
     private List<WebElement> jobLinks;
-
-    @FindBy(xpath = "//div[contains(@class, 'list-container')]/a")
-    private WebElement jobLink;
 
     @FindBy(xpath = "//*[text()='Obowiązkowe']/following-sibling::ul/li")
     private List<WebElement> tags;
@@ -70,13 +67,6 @@ public class NoFluffJobsPage extends BaseSeleniumPage {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollBy(0, arguments[0].getBoundingClientRect().top - 400);", moreJobsButton);
         moreJobsButton.click();
-//        while (moreJobsButton.isDisplayed()) {
-//            JavascriptExecutor js = (JavascriptExecutor) driver;
-//            js.executeScript("arguments[0].scrollIntoView(true);", moreJobsButton);
-//            moreJobsButton.click();
-//            System.out.println("button moreJobsButton clicked");
-//        }
-
         return this;
     }
 

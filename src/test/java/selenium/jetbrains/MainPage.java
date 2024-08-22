@@ -30,13 +30,13 @@ public class MainPage extends BaseSeleniumPage {
     private WebElement mainTitle;
 
     @FindBy(xpath = "//button[text()='Developer Tools' and @data-test = 'main-menu-item-action']")
-    public WebElement developerToolsButton;
+    private WebElement developerToolsButton;
 
     @FindBy(css = "[data-test='main-menu-item']")
-    public List<WebElement> mainMenuItems;
+    private List<WebElement> mainMenuItems;
 
     @FindBy(css = "a[href='#for-teams']")
-    public WebElement forTeamsLink;
+    private WebElement teamsLink;
 
     public MainPage() {
         PageFactory.initElements(driver, this);
@@ -89,11 +89,15 @@ public class MainPage extends BaseSeleniumPage {
     }
 
     public String getForTeamsLink() {
-        return forTeamsLink.getAttribute("href");
+        return teamsLink.getAttribute("href");
     }
 
     public String getForTeamsCSSValue(String value) {
-        return forTeamsLink.getCssValue(value);
+        return teamsLink.getCssValue(value);
+    }
+
+    public WebElement getTeamsLink() {
+        return teamsLink;
     }
 
 }
