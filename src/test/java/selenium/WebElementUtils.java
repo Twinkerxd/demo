@@ -60,4 +60,8 @@ public class WebElementUtils extends BaseSeleniumTest {
     public static void scrollToElementWithValue(int value, WebElement webElement) {
         js.executeScript(String.format("window.scrollBy(0, arguments[0].getBoundingClientRect().top - %d);", value), webElement);
     }
+
+    public static void clickElement(WebElement webElement) {
+        webElement.click();
+    }
 }

@@ -1,6 +1,7 @@
 package selenium;
 
 import org.assertj.core.api.SoftAssertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -27,7 +28,7 @@ public class AllTests extends BaseSeleniumTest {
                 .sendTextSearchInput("Selenium")
                 .clickSearchInput()
                 .clickAdvancedSearchButton()
-                .getResult()
+                .getFirstResultTitle()
                 .getText();
 
         assertEquals(expectedResult, actualResult);
@@ -212,7 +213,7 @@ public class AllTests extends BaseSeleniumTest {
         List<String> actualResult = new MainPage()
                 .clickDeveloperToolsButton()
                 .clickAquaSpan()
-                .clickAquaButton()
+                .clickGetAquaButton()
                 .getTitlesPlans();
 
         assertEquals(expectedResult, actualResult);
@@ -225,6 +226,7 @@ public class AllTests extends BaseSeleniumTest {
     }
 
     @Test
+    @DisplayName("Name of the test")
     public void noFluffJobs() {
         open("https://nofluffjobs.com/pl/Java?criteria=jobPosition%3D%27qa%20engineer%27");
         NoFluffJobsPage noFluffJobsPage = new NoFluffJobsPage();

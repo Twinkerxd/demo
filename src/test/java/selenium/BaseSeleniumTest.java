@@ -1,5 +1,6 @@
 package selenium;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.openqa.selenium.WebDriver;
@@ -32,7 +33,12 @@ public abstract class BaseSeleniumTest {
     }
 
     @AfterEach
-    public void tearDown() {
+    public void qwe() {
+        driver.close();
+    }
+
+    @AfterAll
+    public static void tearDown() {
         driver.quit();
     }
 }

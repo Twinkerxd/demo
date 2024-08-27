@@ -5,8 +5,13 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
 
+import static selenium.WebElementUtils.clickElement;
+
 public class AlertPage extends BaseSeleniumPage {
     //https://the-internet.herokuapp.com/javascript_alerts
+
+    @FindBy(xpath = "//h3[text()='JavaScript Alerts']")
+    private WebElement mainTitle;
 
     @FindBy(xpath = "//button[text()='Click for JS Alert']")
     private WebElement jsAlertButton;
@@ -22,20 +27,25 @@ public class AlertPage extends BaseSeleniumPage {
 
     public AlertPage() {
         PageFactory.initElements(driver, this);
+        isAt();
+    }
+
+    public void isAt() {
+        mainTitle.isDisplayed();
     }
 
     public AlertPage clickJsAlertButton() {
-        jsAlertButton.click();
+        clickElement(jsAlertButton);
         return this;
     }
 
     public AlertPage clickJsConfirmButton() {
-        jsConfirmButton.click();
+        clickElement(jsConfirmButton);
         return this;
     }
 
     public AlertPage clickJsPromptButton() {
-        jsPromptButton.click();
+        clickElement(jsPromptButton);
         return this;
     }
 

@@ -1,20 +1,18 @@
 package selenium.jetbrains;
 
 import org.openqa.selenium.Cookie;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.Wait;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import selenium.BaseSeleniumPage;
 
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import static selenium.WebElementUtils.clickElement;
+
 public class MainPage extends BaseSeleniumPage {
+    // https://www.jetbrains.com/
 
     @FindBy(css = "button[data-test='site-header-search-action']")
     private WebElement searchButton;
@@ -39,7 +37,7 @@ public class MainPage extends BaseSeleniumPage {
 
     public MainPage() {
         PageFactory.initElements(driver, this);
-        openMainPage();
+        openMainPage().isAt();
     }
 
     public MainPage openMainPage() {
@@ -50,13 +48,17 @@ public class MainPage extends BaseSeleniumPage {
         return this;
     }
 
+    public void isAt() {
+        mainTitle.isDisplayed();
+    }
+
     public MainPage clickSearchButton() {
-        searchButton.click();
+        clickElement(searchButton);
         return this;
     }
 
     public MainPage clickSearchInput() {
-        searchInput.click();
+        clickElement(searchInput);
         return this;
     }
 
@@ -66,7 +68,7 @@ public class MainPage extends BaseSeleniumPage {
     }
 
     public AdvancedSearchPage clickAdvancedSearchButton() {
-        advancedSearchButton.click();
+        clickElement(advancedSearchButton);
         return new AdvancedSearchPage();
     }
 
@@ -75,14 +77,14 @@ public class MainPage extends BaseSeleniumPage {
     }
 
     public MainMenuPage clickDeveloperToolsButton() {
-        developerToolsButton.click();
+        clickElement(developerToolsButton);
         return new MainMenuPage();
     }
 
     public List<String> getMainMenuItems() {
         List<String> mainMenuItems = new ArrayList<>();
         for (WebElement element : this.mainMenuItems) {
-             mainMenuItems.add(element.getText());
+            mainMenuItems.add(element.getText());
         }
         return mainMenuItems;
     }
