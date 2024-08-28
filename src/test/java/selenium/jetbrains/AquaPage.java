@@ -5,24 +5,32 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
 
-public class AquaPage extends BaseSeleniumPage {
+import static selenium.WebElementUtils.clickElement;
 
-    @FindBy(xpath = "//h1")
-    private WebElement title;
+public class AquaPage extends BaseSeleniumPage {
+    //https://www.jetbrains.com/aqua/
+
+    @FindBy(xpath = "//h1[text()='The IDE for test automation']")
+    private WebElement mainTitle;
 
     @FindBy(xpath = "//a[@data-test='button' and text()='Get Aqua']")
-    private WebElement aquaButton;
+    private WebElement getAquaButton;
 
     public AquaPage() {
         PageFactory.initElements(driver, this);
+        isAt();
+    }
+
+    public void isAt() {
+        mainTitle.isDisplayed();
     }
 
     public String getTitle() {
-        return title.getText();
+        return mainTitle.getText();
     }
 
-    public BuyPage clickAquaButton() {
-        aquaButton.click();
+    public BuyPage clickGetAquaButton() {
+        clickElement(getAquaButton);
         return new BuyPage();
     }
 }

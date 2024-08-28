@@ -9,12 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SolidJobsPage extends BaseSeleniumPage {
+    //https://solid.jobs/offers/it;experiences=Regular;categories=Tester;subcategories=In%C5%BCynier%20test%C3%B3w%20automatycznych
+
+    @FindBy(xpath = "//span[text()='Oferty Inżynier testów automatycznych']")
+    private WebElement mainTitle;
 
     @FindBy(xpath = "//solidjobs-skill-display/a")
     private List<WebElement> tags;
 
     public SolidJobsPage() {
         PageFactory.initElements(driver, this);
+        isAt();
+    }
+
+    public void isAt() {
+        mainTitle.isDisplayed();
     }
 
     public List<String> getAllTags() {

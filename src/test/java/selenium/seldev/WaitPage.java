@@ -7,6 +7,8 @@ import selenium.BaseSeleniumPage;
 
 import java.util.List;
 
+import static selenium.WebElementUtils.clickElement;
+
 public class WaitPage extends BaseSeleniumPage {
     //https://www.selenium.dev/selenium/web/dynamic.html
 
@@ -21,10 +23,15 @@ public class WaitPage extends BaseSeleniumPage {
 
     public WaitPage() {
         PageFactory.initElements(driver, this);
+        isAt();
+    }
+
+    public void isAt() {
+        addButton.isDisplayed();
     }
 
     public WaitPage clickAddButton() {
-        addButton.click();
+        clickElement(addButton);
         return this;
     }
 

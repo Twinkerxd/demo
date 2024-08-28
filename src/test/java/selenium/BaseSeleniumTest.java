@@ -1,12 +1,16 @@
 package selenium;
 
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.openqa.selenium.NoSuchSessionException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.time.Duration;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public abstract class BaseSeleniumTest {
 
@@ -14,6 +18,9 @@ public abstract class BaseSeleniumTest {
 
     @BeforeEach
     public void setUp() {
+        Logger logger = Logger.getLogger("org.openqa.selenium");
+        logger.setLevel(Level.SEVERE);
+
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         options.addArguments("--disable-notifications");
@@ -31,8 +38,10 @@ public abstract class BaseSeleniumTest {
         BaseSeleniumPage.setDriver(driver);
     }
 
-    @AfterEach
-    public void tearDown() {
-        driver.quit();
+    @AfterAll
+    public static void tearDown() {
+        if (driver != null) {
+            driver.quit();
+        }
     }
 }

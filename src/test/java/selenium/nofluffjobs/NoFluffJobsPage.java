@@ -11,8 +11,12 @@ import java.util.List;
 import static selenium.WebElementUtils.*;
 
 public class NoFluffJobsPage extends BaseSeleniumPage {
+    //https://nofluffjobs.com/pl/Java?criteria=jobPosition%3D%27qa%20engineer%27
 
     List<String> listOfTags = new ArrayList<>();
+
+    @FindBy(xpath = "//h1[text()='Szanujemy Twój czas. Widełki dopasowane do Ciebie.']")
+    private WebElement mainTitle;
 
     @FindBy(xpath = "//button[text()='Akceptuj']")
     private WebElement acceptCookieButton;
@@ -28,6 +32,11 @@ public class NoFluffJobsPage extends BaseSeleniumPage {
 
     public NoFluffJobsPage() {
         PageFactory.initElements(driver, this);
+        isAt();
+    }
+
+    public void isAt() {
+        mainTitle.isDisplayed();
     }
 
     public void clickJobLinkAndGetAllTags() {
@@ -58,12 +67,12 @@ public class NoFluffJobsPage extends BaseSeleniumPage {
 
     public NoFluffJobsPage clickMoreJobsButton() {
         scrollToElementWithValue(400, moreJobsButton);
-        moreJobsButton.click();
+        clickElement(moreJobsButton);
         return this;
     }
 
     public NoFluffJobsPage clickAcceptCookieButton() {
-        acceptCookieButton.click();
+        clickElement(acceptCookieButton);
         return this;
     }
 
