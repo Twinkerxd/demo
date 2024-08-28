@@ -38,6 +38,11 @@ public abstract class BaseSeleniumTest {
         BaseSeleniumPage.setDriver(driver);
     }
 
+    @AfterEach
+    public void end() {
+        driver.close();
+    }
+
     @AfterAll
     public static void tearDown() {
         if (driver != null) {
