@@ -16,6 +16,8 @@ import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static selenium.WebElementUtils.*;
+import static selenium.WebWaitUtils.*;
+import static selenium.WebAlertUtils.*;
 
 public class AllTests extends BaseSeleniumTest {
 
