@@ -20,11 +20,11 @@ public class BuyPage extends BaseSeleniumPage {
 
     public BuyPage() {
         PageFactory.initElements(driver, this);
-        isAt();
     }
 
-    public void isAt() {
+    public BuyPage isAt() {
         subscriptionPlansTitle.isDisplayed();
+        return this;
     }
 
     public List<String> getTitlesPlans() {

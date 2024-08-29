@@ -32,11 +32,11 @@ public class NoFluffJobsPage extends BaseSeleniumPage {
 
     public NoFluffJobsPage() {
         PageFactory.initElements(driver, this);
-        isAt();
     }
 
-    public void isAt() {
+    public NoFluffJobsPage isAt() {
         mainTitle.isDisplayed();
+        return this;
     }
 
     public void clickJobLinkAndGetAllTags() {
@@ -67,12 +67,12 @@ public class NoFluffJobsPage extends BaseSeleniumPage {
 
     public NoFluffJobsPage clickMoreJobsButton() {
         scrollToElementWithValue(400, moreJobsButton);
-        clickElement(moreJobsButton);
+        clickOnElement(moreJobsButton);
         return this;
     }
 
     public NoFluffJobsPage clickAcceptCookieButton() {
-        clickElement(acceptCookieButton);
+        clickOnElement(acceptCookieButton);
         return this;
     }
 

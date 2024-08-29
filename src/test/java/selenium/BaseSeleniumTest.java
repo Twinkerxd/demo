@@ -1,9 +1,7 @@
 package selenium;
 
 import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.openqa.selenium.NoSuchSessionException;
+import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -16,8 +14,8 @@ public abstract class BaseSeleniumTest {
 
     protected static WebDriver driver;
 
-    @BeforeEach
-    public void setUp() {
+    @BeforeAll
+    public static void setUpAll() {
         Logger logger = Logger.getLogger("org.openqa.selenium");
         logger.setLevel(Level.SEVERE);
 
@@ -38,13 +36,8 @@ public abstract class BaseSeleniumTest {
         BaseSeleniumPage.setDriver(driver);
     }
 
-    @AfterEach
-    public void end() {
-        driver.close();
-    }
-
     @AfterAll
-    public static void tearDown() {
+    public static void tearDownAll() {
         if (driver != null) {
             driver.quit();
         }

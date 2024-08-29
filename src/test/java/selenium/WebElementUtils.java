@@ -33,7 +33,7 @@ public class WebElementUtils extends BaseSeleniumTest {
         js.executeScript(String.format("window.scrollBy(0, arguments[0].getBoundingClientRect().top - %d);", value), webElement);
     }
 
-    public static void clickElement(WebElement webElement) {
+    public static void clickOnElement(WebElement webElement) {
         webElement.click();
     }
 }

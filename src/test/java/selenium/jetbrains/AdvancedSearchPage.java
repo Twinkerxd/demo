@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
 
-import static selenium.WebElementUtils.clickElement;
+import static selenium.WebElementUtils.clickOnElement;
 
 public class AdvancedSearchPage extends BaseSeleniumPage {
 
@@ -20,11 +20,11 @@ public class AdvancedSearchPage extends BaseSeleniumPage {
 
     public AdvancedSearchPage() {
         PageFactory.initElements(driver, this);
-        isAt();
     }
 
-    public void isAt() {
+    public AdvancedSearchPage isAt() {
         firstSearchResults.isDisplayed();
+        return this;
     }
 
     public WebElement getFirstResultTitle() {
@@ -32,7 +32,7 @@ public class AdvancedSearchPage extends BaseSeleniumPage {
     }
 
     public MainPage clickCloseSearchButton() {
-        clickElement(closeSearchButton);
+        clickOnElement(closeSearchButton);
         return new MainPage();
     }
 }

@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
 
-import static selenium.WebElementUtils.clickElement;
+import static selenium.WebElementUtils.clickOnElement;
 
 public class AquaPage extends BaseSeleniumPage {
     //https://www.jetbrains.com/aqua/
@@ -18,11 +18,11 @@ public class AquaPage extends BaseSeleniumPage {
 
     public AquaPage() {
         PageFactory.initElements(driver, this);
-        isAt();
     }
 
-    public void isAt() {
+    public AquaPage isAt() {
         mainTitle.isDisplayed();
+        return this;
     }
 
     public String getTitle() {
@@ -30,7 +30,7 @@ public class AquaPage extends BaseSeleniumPage {
     }
 
     public BuyPage clickGetAquaButton() {
-        clickElement(getAquaButton);
-        return new BuyPage();
+        clickOnElement(getAquaButton);
+        return new BuyPage().isAt();
     }
 }

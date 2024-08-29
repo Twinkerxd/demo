@@ -19,11 +19,11 @@ public class SolidJobsPage extends BaseSeleniumPage {
 
     public SolidJobsPage() {
         PageFactory.initElements(driver, this);
-        isAt();
     }
 
-    public void isAt() {
+    public SolidJobsPage isAt() {
         mainTitle.isDisplayed();
+        return this;
     }
 
     public List<String> getAllTags() {

@@ -15,9 +15,10 @@ import selenium.solidJobs.SolidJobsPage;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static selenium.WebElementUtils.*;
+import static selenium.WebAlertUtils.sendKeysToAlert;
+import static selenium.WebElementUtils.moveToElement;
+import static selenium.WebElementUtils.open;
 import static selenium.WebWaitUtils.*;
-import static selenium.WebAlertUtils.*;
 
 public class AllTests extends BaseSeleniumTest {
 
@@ -107,7 +108,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void explicitWaits_1() {
         open("https://www.selenium.dev/selenium/web/dynamic.html");
-        WaitPage waitPage = new WaitPage();
+        WaitPage waitPage = new WaitPage().isAt();
         WebElement element = waitPage.getRedBox0();
 
         waitPage.clickAddButton();
@@ -125,7 +126,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void explicitWaits_2() {
         open("https://www.selenium.dev/selenium/web/dynamic.html");
-        WaitPage waitPage = new WaitPage();
+        WaitPage waitPage = new WaitPage().isAt();
 
         for (int i = 0; i < 5; i++) {
             String id = "box" + i;
@@ -142,7 +143,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void explicitWaitWithLambda() {
         open("https://www.selenium.dev/selenium/web/dynamic.html");
-        WaitPage waitPage = new WaitPage();
+        WaitPage waitPage = new WaitPage().isAt();
         waitPage.clickAddButton();
         Boolean expectedResult = true;
         Boolean actualResult = isDisplayed(waitPage.getRedBox0());
@@ -153,7 +154,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void JsAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
-        AlertPage alertPage = new AlertPage();
+        AlertPage alertPage = new AlertPage().isAt();
         alertPage.clickJsAlertButton();
         waitAlertIsPresent().accept();
 
@@ -166,7 +167,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void JsConfirmAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
-        AlertPage alertPage = new AlertPage();
+        AlertPage alertPage = new AlertPage().isAt();
         alertPage.clickJsConfirmButton();
         waitAlertIsPresent().accept();
 
@@ -179,7 +180,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void JsCancelAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
-        AlertPage alertPage = new AlertPage();
+        AlertPage alertPage = new AlertPage().isAt();
         alertPage.clickJsConfirmButton();
         waitAlertIsPresent().dismiss();
 
@@ -192,7 +193,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void JsPromptAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
-        AlertPage alertPage = new AlertPage();
+        AlertPage alertPage = new AlertPage().isAt();
         alertPage.clickJsPromptButton();
 
         waitAlertIsPresent();
@@ -231,7 +232,7 @@ public class AllTests extends BaseSeleniumTest {
     @DisplayName("Name of the test")
     public void noFluffJobs() {
         open("https://nofluffjobs.com/pl/Java?criteria=jobPosition%3D%27qa%20engineer%27");
-        NoFluffJobsPage noFluffJobsPage = new NoFluffJobsPage();
+        NoFluffJobsPage noFluffJobsPage = new NoFluffJobsPage().isAt();
         noFluffJobsPage.clickAcceptCookieButton().clickMoreJobsButton().clickJobLinkAndGetAllTags();
 
         Map<String, Integer> frequenceMap = new HashMap<>();
@@ -261,7 +262,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void solidJobs() {
         open("https://solid.jobs/offers/it;experiences=Regular;categories=Tester;subcategories=In%C5%BCynier%20test%C3%B3w%20automatycznych");
-        SolidJobsPage solidJobsPage = new SolidJobsPage();
+        SolidJobsPage solidJobsPage = new SolidJobsPage().isAt();
 
         Map<String, Integer> frequenceMap = new HashMap<>();
 

@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
 
-import static selenium.WebElementUtils.clickElement;
+import static selenium.WebElementUtils.clickOnElement;
 
 public class AlertPage extends BaseSeleniumPage {
     //https://the-internet.herokuapp.com/javascript_alerts
@@ -27,25 +27,25 @@ public class AlertPage extends BaseSeleniumPage {
 
     public AlertPage() {
         PageFactory.initElements(driver, this);
-        isAt();
     }
 
-    public void isAt() {
+    public AlertPage isAt() {
         mainTitle.isDisplayed();
+        return this;
     }
 
     public AlertPage clickJsAlertButton() {
-        clickElement(jsAlertButton);
+        clickOnElement(jsAlertButton);
         return this;
     }
 
     public AlertPage clickJsConfirmButton() {
-        clickElement(jsConfirmButton);
+        clickOnElement(jsConfirmButton);
         return this;
     }
 
     public AlertPage clickJsPromptButton() {
-        clickElement(jsPromptButton);
+        clickOnElement(jsPromptButton);
         return this;
     }
 

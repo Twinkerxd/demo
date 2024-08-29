@@ -9,7 +9,7 @@ import selenium.BaseSeleniumPage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static selenium.WebElementUtils.clickElement;
+import static selenium.WebElementUtils.clickOnElement;
 
 public class MainPage extends BaseSeleniumPage {
     // https://www.jetbrains.com/
@@ -53,12 +53,12 @@ public class MainPage extends BaseSeleniumPage {
     }
 
     public MainPage clickSearchButton() {
-        clickElement(searchButton);
+        clickOnElement(searchButton);
         return this;
     }
 
     public MainPage clickSearchInput() {
-        clickElement(searchInput);
+        clickOnElement(searchInput);
         return this;
     }
 
@@ -68,8 +68,8 @@ public class MainPage extends BaseSeleniumPage {
     }
 
     public AdvancedSearchPage clickAdvancedSearchButton() {
-        clickElement(advancedSearchButton);
-        return new AdvancedSearchPage();
+        clickOnElement(advancedSearchButton);
+        return new AdvancedSearchPage().isAt();
     }
 
     public String getMainTitle() {
@@ -77,8 +77,8 @@ public class MainPage extends BaseSeleniumPage {
     }
 
     public MainMenuPage clickDeveloperToolsButton() {
-        clickElement(developerToolsButton);
-        return new MainMenuPage();
+        clickOnElement(developerToolsButton);
+        return new MainMenuPage().isAt();
     }
 
     public List<String> getMainMenuItems() {

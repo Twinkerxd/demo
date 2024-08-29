@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
 
-import static selenium.WebElementUtils.clickElement;
+import static selenium.WebElementUtils.clickOnElement;
 
 public class MainMenuPage extends BaseSeleniumPage {
 
@@ -18,16 +18,16 @@ public class MainMenuPage extends BaseSeleniumPage {
 
     public MainMenuPage() {
         PageFactory.initElements(driver, this);
-        isAt();
     }
 
-    public void isAt() {
+    public MainMenuPage isAt() {
         mainSubMenu.isDisplayed();
+        return this;
     }
 
 
     public AquaPage clickAquaSpan() {
-        clickElement(aquaSpan);
-        return new AquaPage();
+        clickOnElement(aquaSpan);
+        return new AquaPage().isAt();
     }
 }
