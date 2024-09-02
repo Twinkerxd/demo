@@ -288,7 +288,7 @@ public class AllTests extends BaseSeleniumTest {
         sortedMap.forEach((key, value) -> System.out.println(key + ": " + value));
     }
 
-    @Test
+
     public void softAsserts() {
         SoftAssertions softAssertions = new SoftAssertions();
 

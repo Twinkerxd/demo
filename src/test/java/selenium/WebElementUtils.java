@@ -1,10 +1,14 @@
 package selenium;
 
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
-public class WebElementUtils extends BaseSeleniumTest {
+public class WebElementUtils {
+
+    private static final WebDriver driver = new ChromeDriver();
 
     static Actions actions = new Actions(driver);
     static JavascriptExecutor js = (JavascriptExecutor) driver;
