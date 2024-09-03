@@ -1,6 +1,8 @@
 package selenium.jetbrains;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -9,7 +11,6 @@ import selenium.BaseSeleniumPage;
 import java.util.ArrayList;
 import java.util.List;
 
-import static selenium.WebElementUtils.clickOnElement;
 
 public class MainPage extends BaseSeleniumPage {
     // https://www.jetbrains.com/
@@ -35,7 +36,8 @@ public class MainPage extends BaseSeleniumPage {
     @FindBy(css = "a[href='#for-teams']")
     private WebElement teamsLink;
 
-    public MainPage() {
+    public MainPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
         openMainPage().isAt();
     }
@@ -52,13 +54,14 @@ public class MainPage extends BaseSeleniumPage {
         mainTitle.isDisplayed();
     }
 
+    @Step("text")
     public MainPage clickSearchButton() {
-        clickOnElement(searchButton);
+        webElementUtils.clickOnElement(searchButton);
         return this;
     }
 
     public MainPage clickSearchInput() {
-        clickOnElement(searchInput);
+        webElementUtils.clickOnElement(searchInput);
         return this;
     }
 
@@ -68,8 +71,8 @@ public class MainPage extends BaseSeleniumPage {
     }
 
     public AdvancedSearchPage clickAdvancedSearchButton() {
-        clickOnElement(advancedSearchButton);
-        return new AdvancedSearchPage().isAt();
+        webElementUtils.clickOnElement(advancedSearchButton);
+        return new AdvancedSearchPage(driver).isAt();
     }
 
     public String getMainTitle() {
@@ -77,8 +80,8 @@ public class MainPage extends BaseSeleniumPage {
     }
 
     public MainMenuPage clickDeveloperToolsButton() {
-        clickOnElement(developerToolsButton);
-        return new MainMenuPage().isAt();
+        webElementUtils.clickOnElement(developerToolsButton);
+        return new MainMenuPage(driver).isAt();
     }
 
     public List<String> getMainMenuItems() {
@@ -99,6 +102,10 @@ public class MainPage extends BaseSeleniumPage {
 
     public WebElement getTeamsLink() {
         return teamsLink;
+    }
+
+    public void moveToElement(WebElement element) {
+        webElementUtils.moveToElement(element);
     }
 
 }

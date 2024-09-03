@@ -1,11 +1,11 @@
 package selenium.jetbrains;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
 
-import static selenium.WebElementUtils.clickOnElement;
 
 public class AquaPage extends BaseSeleniumPage {
     //https://www.jetbrains.com/aqua/
@@ -16,7 +16,8 @@ public class AquaPage extends BaseSeleniumPage {
     @FindBy(xpath = "//a[@data-test='button' and text()='Get Aqua']")
     private WebElement getAquaButton;
 
-    public AquaPage() {
+    public AquaPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -30,7 +31,7 @@ public class AquaPage extends BaseSeleniumPage {
     }
 
     public BuyPage clickGetAquaButton() {
-        clickOnElement(getAquaButton);
-        return new BuyPage().isAt();
+        webElementUtils.clickOnElement(getAquaButton);
+        return new BuyPage(driver).isAt();
     }
 }

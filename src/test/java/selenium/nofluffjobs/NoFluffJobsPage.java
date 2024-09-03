@@ -1,5 +1,6 @@
 package selenium.nofluffjobs;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -7,8 +8,6 @@ import selenium.BaseSeleniumPage;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static selenium.WebElementUtils.*;
 
 public class NoFluffJobsPage extends BaseSeleniumPage {
     //https://nofluffjobs.com/pl/Java?criteria=jobPosition%3D%27qa%20engineer%27
@@ -30,7 +29,8 @@ public class NoFluffJobsPage extends BaseSeleniumPage {
     @FindBy(xpath = "//*[text()=' Pokaż kolejne oferty ']")
     private WebElement moreJobsButton;
 
-    public NoFluffJobsPage() {
+    public NoFluffJobsPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -43,7 +43,7 @@ public class NoFluffJobsPage extends BaseSeleniumPage {
 
         for (WebElement element : jobLinks) {
             String url = element.getAttribute("href");
-            openInNewANewTab(url);
+            webElementUtils.openInNewANewTab(url);
             List<String> tabs = new ArrayList<>(driver.getWindowHandles());
             driver.switchTo().window(tabs.get(1));
             getTags();
@@ -66,13 +66,13 @@ public class NoFluffJobsPage extends BaseSeleniumPage {
     }
 
     public NoFluffJobsPage clickMoreJobsButton() {
-        scrollToElementWithValue(400, moreJobsButton);
-        clickOnElement(moreJobsButton);
+        webElementUtils.scrollToElementWithValue(400, moreJobsButton);
+        webElementUtils.clickOnElement(moreJobsButton);
         return this;
     }
 
     public NoFluffJobsPage clickAcceptCookieButton() {
-        clickOnElement(acceptCookieButton);
+        webElementUtils.clickOnElement(acceptCookieButton);
         return this;
     }
 

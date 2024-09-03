@@ -1,5 +1,6 @@
 package selenium.seldev;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -7,7 +8,6 @@ import selenium.BaseSeleniumPage;
 
 import java.util.List;
 
-import static selenium.WebElementUtils.clickOnElement;
 
 public class WaitPage extends BaseSeleniumPage {
     //https://www.selenium.dev/selenium/web/dynamic.html
@@ -21,7 +21,8 @@ public class WaitPage extends BaseSeleniumPage {
     @FindBy(id = "box0")
     WebElement box0;
 
-    public WaitPage() {
+    public WaitPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -31,7 +32,7 @@ public class WaitPage extends BaseSeleniumPage {
     }
 
     public WaitPage clickAddButton() {
-        clickOnElement(addButton);
+        webElementUtils.clickOnElement(addButton);
         return this;
     }
 

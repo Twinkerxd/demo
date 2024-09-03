@@ -1,11 +1,11 @@
 package selenium.jetbrains;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
 
-import static selenium.WebElementUtils.clickOnElement;
 
 public class MainMenuPage extends BaseSeleniumPage {
 
@@ -16,7 +16,8 @@ public class MainMenuPage extends BaseSeleniumPage {
     public WebElement aquaSpan;
 
 
-    public MainMenuPage() {
+    public MainMenuPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -27,7 +28,7 @@ public class MainMenuPage extends BaseSeleniumPage {
 
 
     public AquaPage clickAquaSpan() {
-        clickOnElement(aquaSpan);
-        return new AquaPage().isAt();
+        webElementUtils.clickOnElement(aquaSpan);
+        return new AquaPage(driver).isAt();
     }
 }

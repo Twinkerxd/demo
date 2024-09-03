@@ -32,8 +32,6 @@ public abstract class BaseSeleniumTest {
         driver.manage().window().maximize();
         driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(5));
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
-
-        BaseSeleniumPage.setDriver(driver);
     }
 
     @AfterAll
@@ -41,5 +39,9 @@ public abstract class BaseSeleniumTest {
         if (driver != null) {
             driver.quit();
         }
+    }
+
+    public void open(String url) {
+        driver.get(url);
     }
 }

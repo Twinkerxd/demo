@@ -1,11 +1,12 @@
 package selenium.seldev;
 
+import org.openqa.selenium.Alert;
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
 
-import static selenium.WebElementUtils.clickOnElement;
 
 public class AlertPage extends BaseSeleniumPage {
     //https://the-internet.herokuapp.com/javascript_alerts
@@ -25,7 +26,8 @@ public class AlertPage extends BaseSeleniumPage {
     @FindBy(id = "result")
     private WebElement resultField;
 
-    public AlertPage() {
+    public AlertPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -35,22 +37,26 @@ public class AlertPage extends BaseSeleniumPage {
     }
 
     public AlertPage clickJsAlertButton() {
-        clickOnElement(jsAlertButton);
+        webElementUtils.clickOnElement(jsAlertButton);
         return this;
     }
 
     public AlertPage clickJsConfirmButton() {
-        clickOnElement(jsConfirmButton);
+        webElementUtils.clickOnElement(jsConfirmButton);
         return this;
     }
 
     public AlertPage clickJsPromptButton() {
-        clickOnElement(jsPromptButton);
+        webElementUtils.clickOnElement(jsPromptButton);
         return this;
     }
 
     public WebElement getResultField() {
         return resultField;
+    }
+
+    public Alert sendKeysToAlert(String text) {
+        return webAlertUtils.sendKeysToAlert(text);
     }
 
 }

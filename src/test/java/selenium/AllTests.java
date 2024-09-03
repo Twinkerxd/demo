@@ -15,9 +15,6 @@ import selenium.solidJobs.SolidJobsPage;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static selenium.WebAlertUtils.sendKeysToAlert;
-import static selenium.WebElementUtils.moveToElement;
-import static selenium.WebElementUtils.open;
 import static selenium.WebWaitUtils.*;
 
 public class AllTests extends BaseSeleniumTest {
@@ -25,7 +22,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void checkSearchResults() {
         String expectedResult = "Aqua: The IDE for test automation";
-        String actualResult = new MainPage()
+        String actualResult = new MainPage(driver)
                 .clickSearchButton()
                 .clickSearchInput()
                 .sendTextSearchInput("Selenium")
@@ -40,7 +37,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void checkCloseSearchButton() {
         String expectedResult = "Make Your Software Vision a Reality";
-        String actualResult = new MainPage()
+        String actualResult = new MainPage(driver)
                 .clickSearchButton()
                 .clickSearchInput()
                 .sendTextSearchInput("Selenium")
@@ -54,7 +51,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void checkAquaPageTitle() {
         String expectedResult = "The IDE for test automation";
-        String actualResult = new MainPage()
+        String actualResult = new MainPage(driver)
                 .clickDeveloperToolsButton()
                 .clickAquaSpan()
                 .getTitle();
@@ -72,7 +69,7 @@ public class AllTests extends BaseSeleniumTest {
         expectedResult.add("Support");
         expectedResult.add("Store");
 
-        List<String> actualResult = new MainPage()
+        List<String> actualResult = new MainPage(driver)
                 .getMainMenuItems();
 
         assertEquals(expectedResult, actualResult);
@@ -81,7 +78,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void checkElementProperty() {
         String expectedResult = "https://www.jetbrains.com/#for-teams";
-        String actualResult = new MainPage()
+        String actualResult = new MainPage(driver)
                 .getForTeamsLink();
 
         assertEquals(expectedResult, actualResult);
@@ -89,7 +86,7 @@ public class AllTests extends BaseSeleniumTest {
 
     @Test
     public void checkCssColorValue() {
-        String color = new MainPage()
+        String color = new MainPage(driver)
                 .getForTeamsCSSValue("background-image");
 
         System.out.println(color);
@@ -97,7 +94,8 @@ public class AllTests extends BaseSeleniumTest {
 
     @Test
     public void actionMoveToElement() {
-        moveToElement(new MainPage().getTeamsLink());
+        MainPage mainPage = new MainPage(driver);
+        mainPage.moveToElement(mainPage.getTeamsLink());
     }
 
     /**
@@ -108,7 +106,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void explicitWaits_1() {
         open("https://www.selenium.dev/selenium/web/dynamic.html");
-        WaitPage waitPage = new WaitPage().isAt();
+        WaitPage waitPage = new WaitPage(driver).isAt();
         WebElement element = waitPage.getRedBox0();
 
         waitPage.clickAddButton();
@@ -126,7 +124,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void explicitWaits_2() {
         open("https://www.selenium.dev/selenium/web/dynamic.html");
-        WaitPage waitPage = new WaitPage().isAt();
+        WaitPage waitPage = new WaitPage(driver).isAt();
 
         for (int i = 0; i < 5; i++) {
             String id = "box" + i;
@@ -143,7 +141,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void explicitWaitWithLambda() {
         open("https://www.selenium.dev/selenium/web/dynamic.html");
-        WaitPage waitPage = new WaitPage().isAt();
+        WaitPage waitPage = new WaitPage(driver).isAt();
         waitPage.clickAddButton();
         Boolean expectedResult = true;
         Boolean actualResult = isDisplayed(waitPage.getRedBox0());
@@ -154,7 +152,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void JsAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
-        AlertPage alertPage = new AlertPage().isAt();
+        AlertPage alertPage = new AlertPage(driver).isAt();
         alertPage.clickJsAlertButton();
         waitAlertIsPresent().accept();
 
@@ -167,7 +165,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void JsConfirmAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
-        AlertPage alertPage = new AlertPage().isAt();
+        AlertPage alertPage = new AlertPage(driver).isAt();
         alertPage.clickJsConfirmButton();
         waitAlertIsPresent().accept();
 
@@ -180,7 +178,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void JsCancelAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
-        AlertPage alertPage = new AlertPage().isAt();
+        AlertPage alertPage = new AlertPage(driver).isAt();
         alertPage.clickJsConfirmButton();
         waitAlertIsPresent().dismiss();
 
@@ -193,12 +191,12 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void JsPromptAlert() {
         open("https://the-internet.herokuapp.com/javascript_alerts");
-        AlertPage alertPage = new AlertPage().isAt();
+        AlertPage alertPage = new AlertPage(driver).isAt();
         alertPage.clickJsPromptButton();
 
         waitAlertIsPresent();
         String text = "Kappa";
-        sendKeysToAlert(text).accept();
+        alertPage.sendKeysToAlert(text).accept();
 
         String expectedResult = "You entered: " + text;
         String actualResult = alertPage.getResultField().getText();
@@ -213,7 +211,7 @@ public class AllTests extends BaseSeleniumTest {
         expectedResult.add("Aqua");
         expectedResult.add("All Products Pack");
 
-        List<String> actualResult = new MainPage()
+        List<String> actualResult = new MainPage(driver)
                 .clickDeveloperToolsButton()
                 .clickAquaSpan()
                 .clickGetAquaButton()
@@ -232,7 +230,7 @@ public class AllTests extends BaseSeleniumTest {
     @DisplayName("Name of the test")
     public void noFluffJobs() {
         open("https://nofluffjobs.com/pl/Java?criteria=jobPosition%3D%27qa%20engineer%27");
-        NoFluffJobsPage noFluffJobsPage = new NoFluffJobsPage().isAt();
+        NoFluffJobsPage noFluffJobsPage = new NoFluffJobsPage(driver).isAt();
         noFluffJobsPage.clickAcceptCookieButton().clickMoreJobsButton().clickJobLinkAndGetAllTags();
 
         Map<String, Integer> frequenceMap = new HashMap<>();
@@ -262,7 +260,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void solidJobs() {
         open("https://solid.jobs/offers/it;experiences=Regular;categories=Tester;subcategories=In%C5%BCynier%20test%C3%B3w%20automatycznych");
-        SolidJobsPage solidJobsPage = new SolidJobsPage().isAt();
+        SolidJobsPage solidJobsPage = new SolidJobsPage(driver).isAt();
 
         Map<String, Integer> frequenceMap = new HashMap<>();
 
