@@ -1,11 +1,10 @@
 package selenium.jetbrains;
 
+import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import selenium.BaseSeleniumPage;
-
-import static selenium.WebElementUtils.clickOnElement;
 
 public class AdvancedSearchPage extends BaseSeleniumPage {
 
@@ -18,7 +17,8 @@ public class AdvancedSearchPage extends BaseSeleniumPage {
     @FindBy(css = "button[data-test=close-search]")
     private WebElement closeSearchButton;
 
-    public AdvancedSearchPage() {
+    public AdvancedSearchPage(WebDriver driver) {
+        super(driver);
         PageFactory.initElements(driver, this);
     }
 
@@ -32,7 +32,7 @@ public class AdvancedSearchPage extends BaseSeleniumPage {
     }
 
     public MainPage clickCloseSearchButton() {
-        clickOnElement(closeSearchButton);
-        return new MainPage();
+        webElementUtils.clickOnElement(closeSearchButton);
+        return new MainPage(driver);
     }
 }

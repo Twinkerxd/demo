@@ -1,23 +1,23 @@
-package selenium;
+package selenium.Utils;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.interactions.Actions;
 
 public class WebElementUtils {
 
-    private static final WebDriver driver = new ChromeDriver();
+    protected WebDriver driver;
+    protected Actions actions;
+    protected JavascriptExecutor js;
 
-    static Actions actions = new Actions(driver);
-    static JavascriptExecutor js = (JavascriptExecutor) driver;
-
-    public static void open(String url) {
-        driver.get(url);
+    public WebElementUtils(WebDriver driver) {
+        this.driver = driver;
+        this.actions = new Actions(driver);
+        this.js = (JavascriptExecutor) driver;
     }
 
-    public static void sleep(int seconds) {
+    public void sleep(int seconds) {
         try {
             Thread.sleep(seconds * 1000L);
         } catch (InterruptedException e) {
@@ -25,19 +25,19 @@ public class WebElementUtils {
         }
     }
 
-    public static void moveToElement(WebElement webElement) {
+    public void moveToElement(WebElement webElement) {
         actions.moveToElement(webElement).build().perform();
     }
 
-    public static void openInNewANewTab(String url) {
+    public void openInNewANewTab(String url) {
         js.executeScript("window.open(arguments[0], '_blank');", url);
     }
 
-    public static void scrollToElementWithValue(int value, WebElement webElement) {
+    public void scrollToElementWithValue(int value, WebElement webElement) {
         js.executeScript(String.format("window.scrollBy(0, arguments[0].getBoundingClientRect().top - %d);", value), webElement);
     }
 
-    public static void clickOnElement(WebElement webElement) {
+    public void clickOnElement(WebElement webElement) {
         webElement.click();
     }
 }

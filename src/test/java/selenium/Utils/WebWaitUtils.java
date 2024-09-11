@@ -1,10 +1,9 @@
-package selenium;
+package selenium.Utils;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -14,23 +13,27 @@ import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class WebWaitUtils {
 
-    private static final WebDriver driver = new ChromeDriver();
+    protected WebDriver driver;
+    protected Wait<WebDriver> wait;
 
-    static Wait<WebDriver> wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+    public WebWaitUtils(WebDriver driver) {
+        this.driver = driver;
+        wait = new WebDriverWait(driver, Duration.ofSeconds(3));
+    }
 
-    public static void waitElementById(String id) {
+    public void waitElementById(String id) {
         wait.until(presenceOfElementLocated(By.id(id)));
     }
 
-    public static void waitVisibilityOfElement(WebElement webElement) {
+    public void waitVisibilityOfElement(WebElement webElement) {
         wait.until(visibilityOf(webElement));
     }
 
-    public static Boolean isDisplayed(WebElement webElement) {
+    public Boolean isDisplayed(WebElement webElement) {
         return wait.until(d -> webElement.isDisplayed());
     }
 
-    public static Alert waitAlertIsPresent() {
+    public Alert waitAlertIsPresent() {
         return wait.until(alertIsPresent());
     }
 }
