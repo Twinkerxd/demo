@@ -1,18 +1,19 @@
-package selenium;
+package selenium.core;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
-import selenium.Utils.WebAlertUtils;
-import selenium.Utils.WebElementUtils;
-import selenium.Utils.WebWaitUtils;
+import selenium.utils.WebAlertUtils;
+import selenium.utils.WebElementUtils;
+import selenium.utils.WebWaitUtils;
 
-public abstract class BaseSeleniumPage {
+public abstract class BasePage {
+
     protected WebDriver driver;
     protected WebElementUtils webElementUtils;
     protected WebWaitUtils webWaitUtils;
     protected WebAlertUtils webAlertUtils;
 
-    public BaseSeleniumPage(WebDriver driver) {
+    public BasePage(WebDriver driver) {
         this.driver = driver;
         this.webElementUtils = new WebElementUtils(driver);
         this.webWaitUtils = new WebWaitUtils(driver);

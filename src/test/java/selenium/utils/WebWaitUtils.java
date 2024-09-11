@@ -1,4 +1,4 @@
-package selenium.Utils;
+package selenium.utils;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;

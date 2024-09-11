@@ -1,4 +1,4 @@
-package selenium;
+package selenium.Tests;
 
 import org.assertj.core.api.SoftAssertions;
 import org.junit.jupiter.api.DisplayName;
@@ -6,24 +6,25 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.WebElement;
-import selenium.Utils.WebWaitUtils;
-import selenium.jetbrains.MainPage;
-import selenium.nofluffjobs.NoFluffJobsPage;
-import selenium.seldev.AlertPage;
-import selenium.seldev.WaitPage;
-import selenium.solidJobs.SolidJobsPage;
+import selenium.core.BaseTest;
+import selenium.pages.nofluffjobs.NoFluffJobsPage;
+import selenium.pages.nofluffjobs.jetbrains.MainPage;
+import selenium.pages.nofluffjobs.seldev.AlertPage;
+import selenium.pages.nofluffjobs.seldev.WaitPage;
+import selenium.pages.nofluffjobs.solidJobs.SolidJobsPage;
+import selenium.utils.WebWaitUtils;
 
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AllTests extends BaseSeleniumTest {
+public class AllTests extends BaseTest {
     WebWaitUtils webWaitUtils = new WebWaitUtils(driver);
 
     @Test
     public void checkSearchResults() {
         String expectedResult = "Aqua: The IDE for test automation";
-        String actualResult = new MainPage(driver)
+        String actualResult = openMainPage()
                 .clickSearchButton()
                 .clickSearchInput()
                 .sendTextSearchInput("Selenium")
@@ -38,7 +39,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void checkCloseSearchButton() {
         String expectedResult = "Make Your Software Vision a Reality";
-        String actualResult = new MainPage(driver)
+        String actualResult = openMainPage()
                 .clickSearchButton()
                 .clickSearchInput()
                 .sendTextSearchInput("Selenium")
@@ -52,7 +53,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void checkAquaPageTitle() {
         String expectedResult = "The IDE for test automation";
-        String actualResult = new MainPage(driver)
+        String actualResult = openMainPage()
                 .clickDeveloperToolsButton()
                 .clickAquaSpan()
                 .getTitle();
@@ -70,7 +71,7 @@ public class AllTests extends BaseSeleniumTest {
         expectedResult.add("Support");
         expectedResult.add("Store");
 
-        List<String> actualResult = new MainPage(driver)
+        List<String> actualResult = openMainPage()
                 .getMainMenuItems();
 
         assertEquals(expectedResult, actualResult);
@@ -79,7 +80,7 @@ public class AllTests extends BaseSeleniumTest {
     @Test
     public void checkElementProperty() {
         String expectedResult = "https://www.jetbrains.com/#for-teams";
-        String actualResult = new MainPage(driver)
+        String actualResult = openMainPage()
                 .getForTeamsLink();
 
         assertEquals(expectedResult, actualResult);
@@ -87,7 +88,7 @@ public class AllTests extends BaseSeleniumTest {
 
     @Test
     public void checkCssColorValue() {
-        String color = new MainPage(driver)
+        String color = openMainPage()
                 .getForTeamsCSSValue("background-image");
 
         System.out.println(color);
@@ -95,7 +96,7 @@ public class AllTests extends BaseSeleniumTest {
 
     @Test
     public void actionMoveToElement() {
-        MainPage mainPage = new MainPage(driver);
+        MainPage mainPage = openMainPage();
         mainPage.moveToElement(mainPage.getTeamsLink());
     }
 
@@ -212,7 +213,7 @@ public class AllTests extends BaseSeleniumTest {
         expectedResult.add("Aqua");
         expectedResult.add("All Products Pack");
 
-        List<String> actualResult = new MainPage(driver)
+        List<String> actualResult = openMainPage()
                 .clickDeveloperToolsButton()
                 .clickAquaSpan()
                 .clickGetAquaButton()

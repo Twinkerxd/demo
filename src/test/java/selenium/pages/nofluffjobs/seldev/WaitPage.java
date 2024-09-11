@@ -1,15 +1,15 @@
-package selenium.seldev;
+package selenium.pages.nofluffjobs.seldev;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import selenium.BaseSeleniumPage;
+import selenium.core.BasePage;
 
 import java.util.List;
 
 
-public class WaitPage extends BaseSeleniumPage {
+public class WaitPage extends BasePage {
     //https://www.selenium.dev/selenium/web/dynamic.html
 
     @FindBy(className = "redbox")

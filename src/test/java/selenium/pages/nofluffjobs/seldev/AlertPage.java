@@ -1,14 +1,14 @@
-package selenium.seldev;
+package selenium.pages.nofluffjobs.seldev;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import selenium.BaseSeleniumPage;
+import selenium.core.BasePage;
 
 
-public class AlertPage extends BaseSeleniumPage {
+public class AlertPage extends BasePage {
     //https://the-internet.herokuapp.com/javascript_alerts
 
     @FindBy(xpath = "//h3[text()='JavaScript Alerts']")

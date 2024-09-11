@@ -1,16 +1,17 @@
-package selenium;
+package selenium.core;
 
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import selenium.pages.nofluffjobs.jetbrains.MainPage;
 
 import java.time.Duration;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public abstract class BaseSeleniumTest {
+public abstract class BaseTest {
 
     protected static WebDriver driver;
 
@@ -43,5 +44,9 @@ public abstract class BaseSeleniumTest {
 
     public void open(String url) {
         driver.get(url);
+    }
+
+    public MainPage openMainPage() {
+        return new MainPage(driver);
     }
 }

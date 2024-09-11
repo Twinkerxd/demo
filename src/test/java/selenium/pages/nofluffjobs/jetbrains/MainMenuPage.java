@@ -1,13 +1,13 @@
-package selenium.jetbrains;
+package selenium.pages.nofluffjobs.jetbrains;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import selenium.BaseSeleniumPage;
+import selenium.core.BasePage;
 
 
-public class MainMenuPage extends BaseSeleniumPage {
+public class MainMenuPage extends BasePage {
 
     @FindBy(xpath = "(//div[@data-test='main-submenu'])[1]")
     public WebElement mainSubMenu;

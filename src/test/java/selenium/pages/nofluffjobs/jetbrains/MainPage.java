@@ -1,4 +1,4 @@
-package selenium.jetbrains;
+package selenium.pages.nofluffjobs.jetbrains;
 
 import io.qameta.allure.Step;
 import org.openqa.selenium.Cookie;
@@ -6,13 +6,13 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import selenium.BaseSeleniumPage;
+import selenium.core.BasePage;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
-public class MainPage extends BaseSeleniumPage {
+public class MainPage extends BasePage {
     // https://www.jetbrains.com/
 
     @FindBy(css = "button[data-test='site-header-search-action']")

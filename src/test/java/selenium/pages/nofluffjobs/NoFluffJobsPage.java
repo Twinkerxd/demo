@@ -1,15 +1,15 @@
-package selenium.nofluffjobs;
+package selenium.pages.nofluffjobs;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import selenium.BaseSeleniumPage;
+import selenium.core.BasePage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class NoFluffJobsPage extends BaseSeleniumPage {
+public class NoFluffJobsPage extends BasePage {
     //https://nofluffjobs.com/pl/Java?criteria=jobPosition%3D%27qa%20engineer%27
 
     List<String> listOfTags = new ArrayList<>();

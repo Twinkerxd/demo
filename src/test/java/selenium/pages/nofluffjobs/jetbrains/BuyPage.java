@@ -1,15 +1,15 @@
-package selenium.jetbrains;
+package selenium.pages.nofluffjobs.jetbrains;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import selenium.BaseSeleniumPage;
+import selenium.core.BasePage;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class BuyPage extends BaseSeleniumPage {
+public class BuyPage extends BasePage {
     // https://www.jetbrains.com/aqua/buy/
 
     @FindBy(xpath = "//h1[text()='Subscription Plans']")
