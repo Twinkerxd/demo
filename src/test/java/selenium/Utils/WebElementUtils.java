@@ -1,4 +1,4 @@
-package selenium;
+package selenium.Utils;
 
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
@@ -8,8 +8,14 @@ import org.openqa.selenium.interactions.Actions;
 public class WebElementUtils {
 
     protected WebDriver driver;
-    protected Actions actions = new Actions(driver);
-    protected JavascriptExecutor js = (JavascriptExecutor) driver;
+    protected Actions actions;
+    protected JavascriptExecutor js;
+
+    public WebElementUtils(WebDriver driver) {
+        this.driver = driver;
+        this.actions = new Actions(driver);
+        this.js = (JavascriptExecutor) driver;
+    }
 
     public void sleep(int seconds) {
         try {

@@ -6,6 +6,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.openqa.selenium.WebElement;
+import selenium.Utils.WebWaitUtils;
 import selenium.jetbrains.MainPage;
 import selenium.nofluffjobs.NoFluffJobsPage;
 import selenium.seldev.AlertPage;
@@ -15,9 +16,9 @@ import selenium.solidJobs.SolidJobsPage;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static selenium.WebWaitUtils.*;
 
 public class AllTests extends BaseSeleniumTest {
+    WebWaitUtils webWaitUtils = new WebWaitUtils(driver);
 
     @Test
     public void checkSearchResults() {
@@ -110,7 +111,7 @@ public class AllTests extends BaseSeleniumTest {
         WebElement element = waitPage.getRedBox0();
 
         waitPage.clickAddButton();
-        waitVisibilityOfElement(element);
+        webWaitUtils.waitVisibilityOfElement(element);
 
         Boolean expectedResult = true;
         Boolean actualResult = element.isDisplayed();
@@ -129,7 +130,7 @@ public class AllTests extends BaseSeleniumTest {
         for (int i = 0; i < 5; i++) {
             String id = "box" + i;
             waitPage.clickAddButton();
-            waitElementById(id);
+            webWaitUtils.waitElementById(id);
         }
 
         int expectedResult = 5;
@@ -144,7 +145,7 @@ public class AllTests extends BaseSeleniumTest {
         WaitPage waitPage = new WaitPage(driver).isAt();
         waitPage.clickAddButton();
         Boolean expectedResult = true;
-        Boolean actualResult = isDisplayed(waitPage.getRedBox0());
+        Boolean actualResult = webWaitUtils.isDisplayed(waitPage.getRedBox0());
 
         assertEquals(expectedResult, actualResult);
     }
@@ -154,7 +155,7 @@ public class AllTests extends BaseSeleniumTest {
         open("https://the-internet.herokuapp.com/javascript_alerts");
         AlertPage alertPage = new AlertPage(driver).isAt();
         alertPage.clickJsAlertButton();
-        waitAlertIsPresent().accept();
+        webWaitUtils.waitAlertIsPresent().accept();
 
         String expectedResult = "You successfully clicked an alert";
         String actualResult = alertPage.getResultField().getText();
@@ -167,7 +168,7 @@ public class AllTests extends BaseSeleniumTest {
         open("https://the-internet.herokuapp.com/javascript_alerts");
         AlertPage alertPage = new AlertPage(driver).isAt();
         alertPage.clickJsConfirmButton();
-        waitAlertIsPresent().accept();
+        webWaitUtils.waitAlertIsPresent().accept();
 
         String expectedResult = "You clicked: Ok";
         String actualResult = alertPage.getResultField().getText();
@@ -180,7 +181,7 @@ public class AllTests extends BaseSeleniumTest {
         open("https://the-internet.herokuapp.com/javascript_alerts");
         AlertPage alertPage = new AlertPage(driver).isAt();
         alertPage.clickJsConfirmButton();
-        waitAlertIsPresent().dismiss();
+        webWaitUtils.waitAlertIsPresent().dismiss();
 
         String expectedResult = "You clicked: Cancel";
         String actualResult = alertPage.getResultField().getText();
@@ -194,7 +195,7 @@ public class AllTests extends BaseSeleniumTest {
         AlertPage alertPage = new AlertPage(driver).isAt();
         alertPage.clickJsPromptButton();
 
-        waitAlertIsPresent();
+        webWaitUtils.waitAlertIsPresent();
         String text = "Kappa";
         alertPage.sendKeysToAlert(text).accept();
 

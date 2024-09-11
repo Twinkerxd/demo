@@ -1,4 +1,4 @@
-package selenium;
+package selenium.Utils;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
@@ -10,5 +10,9 @@ public class WebAlertUtils {
         Alert alert = driver.switchTo().alert();
         alert.sendKeys(text);
         return alert;
+    }
+
+    public WebAlertUtils(WebDriver driver) {
+        this.driver = driver;
     }
 }
